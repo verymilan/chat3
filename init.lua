@@ -149,6 +149,9 @@ function chat3.send(name, msg, prefix, source)
 			end
 
 			minetest.chat_send_player(rname, send)
+			if minetest.get_modpath("irc") then
+				irc:say(string.format("<"..name.."> "..msg))
+			end	
 		end
 	end
 
@@ -233,6 +236,9 @@ if minetest.chatcommands["me"] then
 				if not ignore or not chat3.ignore.is(rname, name) then
 					minetest.chat_send_player(rname, "* "..name.." "..param)
 				end
+				if minetest.get_modpath("irc") then
+					irc:say(string.format("* "..name.." "..param))
+				end	
 			end
 		end,
 	})
